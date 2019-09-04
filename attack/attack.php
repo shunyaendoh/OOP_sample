@@ -4,22 +4,15 @@ function h($str)
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
-// プレイヤー数
-global $member_count;
-$member_count = 0;
-// ターン数
-global $turn;
-$turn = 1;
-
 class Player 
 {
     public $x,
            $y;
 
     // プレイヤー数
-    private $member_count = 0;
+    public $member_count = 0;
     // ターン数
-    private $turn = 1;
+    public $turn = 1;
 
     public function __construct($x, $y)
     {
