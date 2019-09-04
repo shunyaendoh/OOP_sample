@@ -4,16 +4,18 @@ class Pokemon
 {
     public $hp;
     public $pp;
+    public $name;
 
     public function cry()
     {
         echo('ウェーーーーーーン');
         echo('<br>');
     }
-    public function __construct($hp, $pp)
+    public function __construct($hp, $pp, $name)
     {
         $this->hp = $hp;
         $this->pp = $pp;
+        $this->name = $name;
     }
     public function attack()
     {

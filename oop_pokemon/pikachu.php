@@ -1,5 +1,4 @@
 <?php
-
 require_once('./pokemon.php');
 
 class Pikachu extends Pokemon
