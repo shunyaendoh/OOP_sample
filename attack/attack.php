@@ -1,96 +1,67 @@
 <?php
-function h($str)
+require_once('./index.php');
+
+class Attack
 {
-    return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
-}
-
-class Player 
-{
-    public $x,
-           $y;
-
-    // プレイヤー数
-    public $member_count = 0;
-    // ターン数
-    public $turn = 1;
-
-    public function __construct($x, $y)
+    public $turn = 1,
+           $count_player = 0,
+           $player = [];
+    
+    public function setPlayer($newPlayer)
     {
-        $this->x = $x;
-        $this->y = $y;
-        $member_count++;
-        echo $member_count;
+        $this->player[] = $newPlayer;
+        $this->count_player++;
+        echo($this->count_player . '人セットされました' . '<br>');
     }
-    // プレイヤーを動かすメソッド
-    function moveUp()
+    public function unset()
     {
-        $this->y = $y + 1;
-        $turn++;
+        unset($_SESSION['x0']);
+        unset($_SESSION['y0']);
+        unset($_SESSION['x1']);
+        unset($_SESSION['y1']);
     }
-    function moveLeft()
+    public function moveUp($num)
     {
-        $this->x = $x - 1;
-        $turn++;
+        echo('<br>up');
+        $_SESSION['y'][$num]++;
+        $this->player[$num]->y = $_SESSION['y'][$num];  
+
+        $p1 = new Player($_SESSION['x'][0],$_SESSION['y'][0],'player1');
+        $p2 = new Player($_SESSION['x'][1],$_SESSION['y'][1],'player2');
+        
+        $this->turn++;
     }
-    function moveRight()
-    {
-        $this->x = $x + 1;
-        $turn++;
+    public function moveLeft($num)
+    {   
+        echo('<br>left');
+        $_SESSION['x'][$num]--;
+        $this->player[$num]->x = $_SESSION['x'][$num];
+
+        $p1 = new Player($_SESSION['x'][0],$_SESSION['y'][0],'player1');
+        $p2 = new Player($_SESSION['x'][1],$_SESSION['y'][1],'player2');
+        
+        $this->turn++;
     }
-    function moveDown()
+    public function moveRight($num)
     {
-        $this->y = $y - 1;
-        $turn++;
+        echo('<br>right');
+        $_SESSION['x'][$num]++;
+        $this->player[$num]->x = $_SESSION['x'][$num];
+
+        $p1 = new Player($_SESSION['x'][0],$_SESSION['y'][0],'player1');
+        $p2 = new Player($_SESSION['x'][1],$_SESSION['y'][1],'player2');
+        
+        $this->turn++;
     }
-    // ターン数を教えるメソッド
-    function sayTurn()
+    public function moveDown($num)
     {
-        echo ('現在' . $turn . 'ターンです');
-    } 
-}
+        echo('<br>down');        
+        $_SESSION['y'][$num]--;
+        $this->player[$num]->y = $_SESSION['y'][$num];
+        
+        $p1 = new Player($_SESSION['x'][0],$_SESSION['y'][0],'player1');
+        $p2 = new Player($_SESSION['x'][1],$_SESSION['y'][1],'player2');
 
-function calc() 
-{
-    return ;
+        $this->turn++;
+    }
 }
-
-// プレイヤーの座標を記録
-if (!empty($_POST))
-{
-    $x1 = h($_POST['x1']);
-    $y1 = h($_POST['y1']);
-
-    $p1 = new Player($x1, $y1);
-    echo $p1->x;
-}
-if (!empty($_POST))
-{
-    $x2 = h($_POST['x2']);
-    $y2 = h($_POST['y2']);
-
-    $p2 = new Player($x2, $y2);
-    echo $p2->x;
-}
-
-// 最初に現在のターンを知らせる
-// ターンの偶数奇数でプレイヤーを分ける
-
-// 上左右下に動かすための変数を宣言
-if (!empty($_POST['up'])) 
-{
-    $up = h($_POST['up']);
-    var_dump ($up);
-}
-if (!empty($_POST['left'])) 
-{
-    $left = h($_POST['left']);
-}
-if (!empty($_POST['right'])) 
-{
-    $right = h($_POST['right']);
-}
-if (!empty($_POST['down'])) 
-{
-    $down = h($_POST['down']);
-}
-
